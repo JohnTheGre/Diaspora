@@ -10,14 +10,20 @@ LANGUAGE_THRESHOLD = 20.0
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
-
+origins = [
+    o.strip().rstrip("/")
+    for o in os.getenv(
+        "ALLOWED_ORIGINS",
+        "https://diaspora-red.vercel.app,http://localhost:5173"
+    ).split(",")
+    if o.strip()
+]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"], 
 )
 
 def get_db():
