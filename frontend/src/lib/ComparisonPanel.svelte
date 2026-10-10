@@ -3,13 +3,13 @@
   import { Chart, registerables } from 'chart.js';
   import { comparisonOpen } from './stores.js';
   import ChipPicker from './ChipPicker.svelte';
+  import { API_BASE } from './config.js';
 
   Chart.register(...registerables);
   Chart.defaults.color = 'rgba(255,255,255,0.7)';
   Chart.defaults.borderColor = 'rgba(255,255,255,0.08)';
   Chart.defaults.font.family = 'system-ui, -apple-system, "Segoe UI", sans-serif';
 
-  const API = 'http://localhost:8000';
   const ACCENT = '#4f9eff';
   const PALETTE = ['#4f9eff', '#ff7a59', '#4ade80', '#f5c542', '#c084fc', '#22d3ee', '#fb7185', '#a3e635', '#f97316', '#818cf8'];
 
@@ -65,9 +65,9 @@
   onMount(async () => {
     try {
       const [c, l, o] = await Promise.all([
-        fetch(`${API}/api/countries`).then((r) => r.json()),
-        fetch(`${API}/api/languages`).then((r) => r.json()),
-        fetch(`${API}/api/diaspora-origins`).then((r) => r.json())
+        fetch(`${API_BASE}/api/countries`).then((r) => r.json()),
+        fetch(`${API_BASE}/api/languages`).then((r) => r.json()),
+        fetch(`${API_BASE}/api/diaspora-origins`).then((r) => r.json())
       ]);
       countries = c; languages = l; origins = o;
     } catch (err) {
@@ -82,10 +82,10 @@
     if (!$comparisonOpen) return;
     const m = metric, lang = language, org = origin;
     const url =
-      m === 'height' ? `${API}/api/height` :
-      m === 'weight' ? `${API}/api/weight` :
-      m === 'language' ? `${API}/api/language/${encodeURIComponent(lang)}?min_percent=0` :
-      `${API}/api/diaspora/${encodeURIComponent(org)}?include_candidates=true`;
+      m === 'height' ? `${API_BASE}/api/height` :
+      m === 'weight' ? `${API_BASE}/api/weight` :
+      m === 'language' ? `${API_BASE}/api/language/${encodeURIComponent(lang)}?min_percent=0` :
+      `${API_BASE}/api/diaspora/${encodeURIComponent(org)}?include_candidates=true`;
 
     const mine = ++token;
     loading = true;
