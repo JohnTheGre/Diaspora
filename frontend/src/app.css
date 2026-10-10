@@ -1,0 +1,10 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* kills the page-level scrollbar */
+}
+
+* {
+  box-sizing: border-box;
+}
