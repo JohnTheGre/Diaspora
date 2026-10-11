@@ -2,8 +2,7 @@
   import { onMount } from 'svelte';
   import { activeFilterType, heightValue, weightValue, selectedLanguages, selectedDiasporas, comparisonOpen } from './stores.js';
   import ChipPicker from './ChipPicker.svelte';
-
-  const API_BASE = 'http://localhost:8000';
+  import { API_BASE } from './config.js';
 
   const HEIGHT_MIN = 140, HEIGHT_MAX = 200;
   const WEIGHT_MIN = 40,  WEIGHT_MAX = 100;

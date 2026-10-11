@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { get } from 'svelte/store';
+  import { API_BASE } from './config.js';
   import { activeFilterType, heightValue, weightValue, selectedLanguages, selectedDiasporas } from './stores.js';
 
 
@@ -13,7 +14,6 @@
   let languageData = {};  // { iso: percentage }
   let diasporaData = {};  // { iso: population }
 
-  const API_BASE = 'http://localhost:8000';
   const DEFAULT_COLOR = 'rgba(255,255,255,0.06)';
 
   async function loadGeoData() {
